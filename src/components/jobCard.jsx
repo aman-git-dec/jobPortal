@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Heart, MapPinIcon, Trash2Icon } from "lucide-react";
 import { Button } from "./ui/button";
 import {
@@ -9,7 +8,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Link } from "react-router-dom";
-import useFetch from "@/hooks/use-fetch";
+import useFetch from "../hooks/useFetch";
 import { deleteJob, saveJob } from "@/api/apiJobs";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
@@ -33,14 +32,21 @@ const JobCard = ({
     loading: loadingSavedJob,
     data: savedJob,
     fn: fnSavedJob,
-  } = useFetch(saveJob);
+  } = useFetch(saveJob, {
+    alreadySaved: saved,
+  });
 
   const handleSaveJob = async () => {
-    await fnSavedJob({
+  const result = await fnSavedJob(
+    {
       user_id: user.id,
       job_id: job.id,
-    });
-    onJobAction();
+    }
+   );
+
+  setSaved(!saved);
+
+  onJobAction();
   };
 
   const handleDeleteJob = async () => {
@@ -100,6 +106,7 @@ const JobCard = ({
             )}
           </Button>
         )}
+        {/* <Heart size={20} stroke="red" fill="red"/> */}
       </CardFooter>
     </Card>
   );
