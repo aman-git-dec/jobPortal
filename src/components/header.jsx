@@ -3,14 +3,13 @@ import { Button } from "./ui/button";
 
 import {
   SignIn,
-  SignInButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
 } from "@clerk/clerk-react";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
 import { useState, useEffect } from "react";
+
 
 const Header = () => {
   const [showSignIn, setshowSignIn] = useState(false);
@@ -34,7 +33,7 @@ const Header = () => {
     <>
       <nav className="py-4 flex justify-between items-center">
         <Link to="/">
-          <img src="logo.png" className="h-20" />
+          <img src="/logo.png" className="h-16 rounded-full" alt="Logo"/>
         </Link>
 
 
@@ -52,10 +51,12 @@ const Header = () => {
           <SignedIn>
             {/* add a condition here */}
             <Button variant="destructive" className="rounded-full">
-              <PenBox size={20} className="mr-2" />
-              Post a job
+               
+            <Link to="/post-job" className="flex items-center">
+                <PenBox size={20} className="mr-2" />
+                Post a job
+            </Link>
             </Button>
-            <Link to="/post-job"></Link>
             <UserButton appearance={{
               elements:{
                 avatarBox:"w-10 h-10",

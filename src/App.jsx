@@ -4,48 +4,74 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./layouts/app-layout";
 import LandingPage from "./pages/landing";
 import Onboarding from "./pages/onboarding";
-import Joblisting from "./pages/job-listing";
+import JobListing from "./pages/job-listing";
 import JobPage from "./pages/job";
 import PostJob from "./pages/post-job";
 import SavedJobs from "./pages/saved-job";
 import MyJobs from "./pages/myjobs";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import ProtectedRoute from "./components/protected-route";
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout/>,
-    children:[
+    element: <AppLayout />,
+    children: [
       {
-        path:'/',
-        element:<LandingPage/>,
+        path: "/",
+        element: <LandingPage />,
       },
       {
-        path:'/onboarding',
-        element:<Onboarding/>,
+        path: "/onboarding",
+        element: (
+          <ProtectedRoute>
+            <Onboarding />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/jobs',
-        element:<Joblisting/>,
+        path: "/jobs",
+        element: (
+          <ProtectedRoute>
+            <JobListing />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/job/:id',
-        element:<JobPage/>,
+        path: "/post-job",
+        element: (
+          <ProtectedRoute>
+            <PostJob />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/post-job',
-        element:<PostJob/>,
+        path: "/my-jobs",
+        element: (
+          <ProtectedRoute>
+            <MyJobs />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/saved-jobs',
-        element:<SavedJobs/>,
+        path: "/saved-jobs",
+        element: (
+          <ProtectedRoute>
+            <SavedJobs />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/my-jobs',
-        element:<MyJobs/>,
+        path: "/job/:id",
+        element: (
+          <ProtectedRoute>
+            <JobPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
-])
+]);
+
 
 function App() {
   return(
